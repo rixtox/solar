@@ -33,6 +33,7 @@
   "author": "RixTox <i@rix.li> (http://github.com/rixtox)",
   "license": "CC-BY-NC-4.0",
   "devDependencies": {
+    "axios": "^0.5.4",
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
@@ -46,8 +47,13 @@
     "html-webpack-plugin": "^2.0.3",
     "morgan": "^1.6.1",
     "react": "^0.13.3",
-    "react-router": "^0.13.3",
+    "react-redux": "^2.1.2",
+    "react-router": "^1.0.0-rc1",
     "react-transform-hmr": "^1.0.0",
+    "redux": "^3.0.0",
+    "redux-devtools": "^2.1.2",
+    "redux-devtools-diff-monitor": "^1.0.0",
+    "redux-logger": "^1.0.8",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0"
   }

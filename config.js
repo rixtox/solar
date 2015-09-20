@@ -18,8 +18,8 @@ export const development = {
   CONSTANTS: {
     __PRODUCTION__: false,
     __DEVELOPMENT__: true,
-    __DEV_TOOLS_ENABLED__: true,
-    __API_BASE_URL__: 'https://nebular.me/api/v1'
+    __DEV_TOOLS__: true,
+    __API_BASE_URL__: 'https://nebular.me/api/v1/'
   }
 };
 
@@ -28,7 +28,7 @@ export const production = {
   CONSTANTS: {
     __PRODUCTION__: true,
     __DEVELOPMENT__: false,
-    __DEV_TOOLS_ENABLED__: false,
-    __API_BASE_URL__: 'https://nebular.me/api/v1'
+    __DEV_TOOLS__: false,
+    __API_BASE_URL__: 'https://nebular.me/api/v1/'
   }
 };
