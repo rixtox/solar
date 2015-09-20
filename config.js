@@ -3,7 +3,8 @@ export const path = {
   src: `${__dirname}/src`,
   entry: `${__dirname}/src/index.js`,
   output: `${__dirname}/dist/assets`,
-  public: `/assets`,
+  content_base: `${__dirname}/dist`,
+  public: `/assets/`,
   html: '../index.html'
 };
 
