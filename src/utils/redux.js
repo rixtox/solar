@@ -2,7 +2,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { compose, createStore, applyMiddleware } from 'redux';
 
-import reducer from '../reducers'; // TODO
+import reducer from 'modules/reducer';
 
 export function createClientStore(client, initialState) {
   // Setup default middlewares
@@ -34,8 +34,8 @@ export function createClientStore(client, initialState) {
 
   // Enable Hot Module Replacement in development mode
   if (__DEVELOPMENT__ && module.hot) {
-    module.hot.accept('../reducers', () => {
-      store.replaceReducer(require('../reducers'));
+    module.hot.accept('modules/reducer', () => {
+      store.replaceReducer(require('modules/reducer'));
     });
   }
 

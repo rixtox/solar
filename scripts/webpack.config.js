@@ -28,7 +28,7 @@ export default {
   devtool: 'source-map',
   progress: true,
   resolve: {
-    moduleDirectories: [
+    modulesDirectories: [
       config.path.src,
       'node_modules'
     ]

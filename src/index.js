@@ -3,24 +3,18 @@ import React from 'react';
 import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 
-import routes from './routes'; // TODO
-import cookie from './utils/cookie';
-import APIClient from './utils/APIClient';
-import { createClientStore } from './utils/redux';
+import routes from 'routes';
+import APIClient from 'utils/APIClient';
+import { createClientStore } from 'utils/redux';
 
 // Create Redux store with API client and pre-defined middlewares
-// Initialze store with saved cookie
 const client = new APIClient();
-const store = createClientStore(client, {
-  auth: {
-    token: cookie.get('token') || ''
-  }
-});
+const store = createClientStore(client);
 
 // Construct the main app root wrapped with Redux contex provider
 var component = (
   <Provider store={store}>{() =>
-    <Router>{routes}</Router>
+    <Router>{routes(store)}</Router>
   }</Provider>
 );
 

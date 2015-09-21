@@ -17,8 +17,8 @@ const server = new WebpackDevServer(webpack(webpack_config, (err, stats) => {
 }), {
   hot: true,
   lazy: false,
-  quiet: true,
-  noInfo: true,
+  // quiet: true,
+  // noInfo: true,
   stats: {
     colors: true,
     cached: true,

@@ -16,19 +16,21 @@ export const dev_server = {
 export const development = {
   title: 'Nebular',
   CONSTANTS: {
+    __DEV_TOOLS__: true,
     __PRODUCTION__: false,
     __DEVELOPMENT__: true,
-    __DEV_TOOLS__: true,
-    __API_BASE_URL__: 'https://nebular.me/api/v1/'
+    __NAMESPACE__: '\'nebular.me\'',
+    __API_BASE_URL__: '\'https://nebular.me/api/v1/\''
   }
 };
 
 export const production = {
   title: 'Nebular',
   CONSTANTS: {
+    __DEV_TOOLS__: false,
     __PRODUCTION__: true,
     __DEVELOPMENT__: false,
-    __DEV_TOOLS__: false,
-    __API_BASE_URL__: 'https://nebular.me/api/v1/'
+    __NAMESPACE__: '\'nebular.me\'',
+    __API_BASE_URL__: '\'https://nebular.me/api/v1/\''
   }
 };
