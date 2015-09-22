@@ -33,7 +33,7 @@
   "author": "RixTox <i@rix.li> (http://github.com/rixtox)",
   "license": "CC-BY-NC-4.0",
   "devDependencies": {
-    "axios": "^0.5.4",
+    "axios": "^0.6.0",
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
@@ -53,7 +53,7 @@
     "react-transform-hmr": "^1.0.0",
     "redux": "^3.0.0",
     "redux-devtools": "^2.1.2",
-    "redux-devtools-diff-monitor": "^1.0.0",
+    "redux-devtools-diff-monitor": "^2.0.0",
     "redux-form": "^1.6.6",
     "redux-logger": "^1.0.8",
     "redux-thunk": "^1.0.0",
