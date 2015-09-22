@@ -11,22 +11,25 @@ export function createClientStore(client, initialState) {
   // Setup development middlewares
   if (__DEVELOPMENT__) {
     // Use Redux logger
-    middleware.push(createLogger());
+    middleware.unshift(createLogger());
   }
 
   // Apply middlewares
-  var finalCreateStore = applyMiddleware(...middleware)(createStore);
+  var finalCreateStore;
 
   // Setup Redux development tools
   if (__DEV_TOOLS__) {
     // Redux DevTools store enhancers
     const { devTools, persistState } = require('redux-devtools');
     finalCreateStore = compose(
+      applyMiddleware(...middleware),
       // Provides support for DevTools:
       devTools(),
       // Lets you write ?debug_session=<name> in address bar to persist debug sessions
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-    )(finalCreateStore);
+    )(createStore);
+  } else {
+    finalCreateStore = applyMiddleware(...middleware)(createStore);
   }
 
   // Create Redux store

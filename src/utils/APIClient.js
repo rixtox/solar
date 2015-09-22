@@ -32,7 +32,7 @@ export default class APIClient {
         }
 
         // Retreive the actions of different stages from the action object
-        const [REQIEST, SUCCESS, FAILURE] = types;
+        const [REQUEST, SUCCESS, FAILURE] = types;
 
         // We first dispatch the REQUEST action
         next({...rest, type: REQUEST});
@@ -40,14 +40,14 @@ export default class APIClient {
         // We pass this APIClient instance into action.promise to invoke the request
         return promise(this).then(
           // Dispatch SUCCESS action
-          (result) => next({...rest, result, type: SUCCESS}),
+          (result) => dispatch({...rest, result, type: SUCCESS}),
           // Dispatch FAILURE action
-          (error) => next({...rest, error, type: FAILURE})
+          (error) => dispatch({...rest, error, type: FAILURE})
         ).catch((error) => {
           // Log any errors
           console.error('API CLIENT MIDDLEWARE ERROR:', error);
           // And dispatch errors
-          next({...rest, error, type: FAILURE});
+          dispatch({...rest, error, type: FAILURE});
         });
       }
     };

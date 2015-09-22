@@ -1,31 +1,33 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
+import { verify } from 'modules/auth';
 import { connect } from 'react-redux';
-import { login, logout } from 'modules/auth';
+import { bindActionCreators } from 'redux';
+import React, { Component, PropTypes } from 'react';
 
 @connect(
-    state => ({user: state.auth.user, token: state.auth.token}),
-    dispatch => bindActionCreators({login, logout}, dispatch))
+    state => ({
+      role: state.auth.role,
+      token: state.auth.token
+    }),
+    dispatch => bindActionCreators({
+      verify
+    }, dispatch))
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
-    user: PropTypes.object,
     token: PropTypes.string,
-    logout: PropTypes.func.isRequired,
-    login: PropTypes.func.isRequired
   }
 
   static contextTypes = {
     store: PropTypes.object.isRequired
   }
 
-  handleLogout(event) {
-    event.preventDefault();
-    this.props.logout();
+  componentDidMount() {
+    if (this.props.token) {
+      this.props.verify(this.props.role, this.props.token);
+    }
   }
 
   render() {
-    const {user} = this.props;
     return (
       <div>{this.props.children}</div>
     );
