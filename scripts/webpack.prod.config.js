@@ -14,8 +14,9 @@ webpack_config.plugins = [
   }),
   new webpack.DefinePlugin(config.production.CONSTANTS),
   new HtmlWebpackPlugin({
+    filename: config.path.html,
     title: config.production.title,
-    filename: config.path.html
+    template: path.join(config.path.src, 'index.html')
   }),
   ...webpack_config.plugins,
   new webpack.optimize.DedupePlugin(),

@@ -19,8 +19,9 @@ webpack_config.entry.main = [
 webpack_config.plugins = [
   new webpack.DefinePlugin(config.development.CONSTANTS),
   new HtmlWebpackPlugin({
+    filename: config.path.html,
     title: config.development.title,
-    filename: config.path.html
+    template: path.join(config.path.src, 'index.html')
   }),
   ...webpack_config.plugins,
   new webpack.HotModuleReplacementPlugin(),

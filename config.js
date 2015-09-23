@@ -5,7 +5,8 @@ export const path = {
   output: `${__dirname}/dist/assets`,
   content_base: `${__dirname}/dist`,
   public: `/assets/`,
-  html: '../index.html'
+  html: '../index.html',
+  favicon: '../favicon.ico'
 };
 
 export const dev_server = {

@@ -1,3 +1,4 @@
+import 'file?name=../[name].[ext]!favicon.ico';
 import 'babel/polyfill';
 import React from 'react';
 import { Router } from 'react-router';
