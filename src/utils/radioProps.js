@@ -1,10 +1,11 @@
 const radioProps = (props, field) => value => {
-  const { handleChange } = props;
+  const { fields: {[field]: fieldProps}, handleChange } = props;
   const setValue = () => handleChange(field, value);
   return {
+    ...fieldProps,
     value,
     onFocus: setValue,
-    checked: props.fields[field].value === value
+    checked: fieldProps.value === value
   };
 };
 

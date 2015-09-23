@@ -26,9 +26,9 @@ export default class LoginForm extends Component {
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Email" {...email} />
         <input type="password" placeholder="Password" {...password} />
-        <input type="radio" id="radio-editors" {...role} {...roleProps('editors')} />
+        <input type="radio" id="radio-editors" {...roleProps('editors')} />
         <label htmlFor="radio-editors">Editor</label>
-        <input type="radio" id="radio-managers" {...role} {...roleProps('managers')} />
+        <input type="radio" id="radio-managers" {...roleProps('managers')} />
         <label htmlFor="radio-managers">Manager</label>
         <input type="submit" value="Login" />
       </form>
