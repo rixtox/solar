@@ -5,8 +5,7 @@ import React, { Component, PropTypes } from 'react';
 
 @connect(
     state => ({
-      role: state.auth.role,
-      token: state.auth.token
+      auth: state.auth
     }),
     dispatch => bindActionCreators({
       verify
@@ -14,7 +13,7 @@ import React, { Component, PropTypes } from 'react';
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
-    token: PropTypes.string,
+    auth: PropTypes.object.isRequired
   }
 
   static contextTypes = {
@@ -22,12 +21,17 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    if (this.props.token) {
-      this.props.verify(this.props.role, this.props.token);
+    const { token, user } = this.props.auth;
+    if (token && !user) {
+      this.props.verify(this.props.auth);
     }
   }
 
   render() {
+    const { token, user } = this.props.auth;
+    if (token && !user) {
+      return <div/>;
+    }
     return (
       <div>{this.props.children}</div>
     );

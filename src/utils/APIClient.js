@@ -57,7 +57,7 @@ export default class APIClient {
   // As our backend API return errors in JSON object instead of HTTP status codes
   // we need to raise errors manually event the request is successed
   transformResponse(data) {
-    if (data.errors)
+    if (data && data.errors)
       throw data.errors;
     return data
   }

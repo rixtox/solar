@@ -5,6 +5,9 @@
   "plugins": [
     "typecheck"
   ],
+  "ignore": [
+    "node_modules"
+  ],
   "env": {
     "development": {
       "plugins": [

@@ -1,22 +1,21 @@
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login, logout } from 'modules/auth';
 import React, { Component, PropTypes } from 'react';
 
-import { LoginForm } from 'components';
+import { logout } from 'modules/auth';
 
 @connect(
     state => ({
       auth: state.auth
     }),
     dispatch => bindActionCreators({
-      login,
       logout
     }, dispatch))
 export default class Home extends Component {
-  handleLogin(data) {
-    this.props.login('editors', data.email, data.password);
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired
   }
 
   handleLogout() {
@@ -24,16 +23,17 @@ export default class Home extends Component {
   }
 
   render() {
+    const { token, user } = this.props.auth;
     var component;
-    if (this.props.auth.token) {
+    if (token) {
       component = <input
         type="button"
         value={
-          "Logout " + (this.props.auth.user ? this.props.auth.user.nickname : '')
+          "Logout " + (user ? user.nickname : '')
         }
         onClick={() => this.handleLogout()} />;
     } else {
-      component = <LoginForm onSubmit={data => this.handleLogin(data)}/>;
+      component = <Link to="/login" state={{redirect: '/'}}>Login</Link>;
     }
 
     return <div>{component}</div>;

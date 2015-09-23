@@ -60,7 +60,10 @@ export default function reducer(state = initialState, action = {}) {
       cookie.unset('token');
       return {};
     case VERIFY:
+      const { role, token } = action;
       return {
+        role,
+        token,
         verifying: true
       };
     case VERIFY_SUCCESS: {
@@ -86,7 +89,7 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function login(role, email, password) {
+export function login({ role, email, password }) {
   return {
     role,
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
@@ -103,7 +106,7 @@ export function logout() {
   return {type: LOGOUT};
 }
 
-export function verify(role, token) {
+export function verify({ role, token }) {
   return {
     role,
     token,

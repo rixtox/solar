@@ -11,9 +11,8 @@ import { createClientStore } from 'utils/redux';
 const history = createHistory();
 
 // Create Redux store with API client and pre-defined middlewares
-// Initialize the store with our custom history object
 const client = new APIClient();
-const store = createClientStore(client, { history });
+const store = createClientStore(client);
 
 // Construct the main app root wrapped with Redux contex provider
 var component = <Provider store={ store }>{() =>
