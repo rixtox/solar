@@ -33,6 +33,7 @@
   "author": "RixTox <i@rix.li> (http://github.com/rixtox)",
   "license": "CC-BY-NC-4.0",
   "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
     "axios": "^0.6.0",
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
@@ -42,6 +43,9 @@
     "babel-runtime": "^5.8.24",
     "better-npm-run": "0.0.2",
     "chalk": "^1.1.1",
+    "connect-history-api-fallback": "^1.1.0",
+    "css-loader": "^0.19.0",
+    "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "fs.extra": "^1.3.2",
@@ -49,7 +53,9 @@
     "html-webpack-plugin": "^2.0.3",
     "mime": "^1.3.4",
     "morgan": "^1.6.1",
+    "node-sass": "^3.3.3",
     "react": "^0.13.3",
+    "react-css-modules": "^3.2.3",
     "react-redux": "^2.1.2",
     "react-router": "^1.0.0-rc1",
     "react-transform-hmr": "^1.0.0",
@@ -59,6 +65,9 @@
     "redux-form": "^1.6.6",
     "redux-logger": "^1.0.8",
     "redux-thunk": "^1.0.0",
+    "sass-loader": "^2.0.1",
+    "style-loader": "^0.12.4",
+    "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0"
   }

@@ -8,6 +8,18 @@ import * as config from '../config';
 import webpack_config from './webpack.config';
 import callback from './utils/webpack-callback';
 
+webpack_config.module.loaders = [
+  ...webpack_config.module.loaders,
+  {
+    test: /\.scss$/i,
+    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true')
+  },
+  {
+    test: /\.css$/i,
+    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap')
+  }
+];
+
 webpack_config.plugins = [
   new ExtractTextPlugin('[name]-[chunkhash].css', {
     allChunks: true

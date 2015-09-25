@@ -14,6 +14,11 @@ export const dev_server = {
   host: 'localhost'
 };
 
+export const prod_server = {
+  port: 3000,
+  host: '0.0.0.0'
+};
+
 export const development = {
   title: 'Nebular',
   CONSTANTS: {

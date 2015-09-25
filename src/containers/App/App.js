@@ -1,7 +1,10 @@
 import { verify } from 'modules/auth';
 import { connect } from 'react-redux';
+import CSSModules from 'react-css-modules';
 import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
+
+import styles from './App.scss';
 
 @connect(
     state => ({
@@ -10,6 +13,7 @@ import React, { Component, PropTypes } from 'react';
     dispatch => bindActionCreators({
       verify
     }, dispatch))
+@CSSModules(styles)
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -33,7 +37,7 @@ export default class App extends Component {
       return <div/>;
     }
     return (
-      <div>{this.props.children}</div>
+      <div styleName="app">{this.props.children}</div>
     );
   }
 }

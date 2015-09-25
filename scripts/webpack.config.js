@@ -20,7 +20,15 @@ export default {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel?optional[]=runtime&stage=0'] }
+      {
+        test: /\.js$/i,
+        exclude: /node_modules/,
+        loaders: ['babel?optional[]=runtime&stage=0']
+      },
+      {
+        test: /\.(jpg|png|woff|otf|ttf|woff2|eot)$/i,
+        loader: 'url?limit=10240'
+      }
     ]
   },
   plugins: [],

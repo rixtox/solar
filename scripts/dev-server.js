@@ -59,4 +59,4 @@ server.use((req, res, next) => {
 });
 
 // Start dev-server
-server.listen(config.dev_server);
+server.listen(config.dev_server.port, config.dev_server.host);
