@@ -12,7 +12,9 @@ webpack_config.module.loaders = [
   ...webpack_config.module.loaders,
   {
     test: /\.scss$/i,
-    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true')
+    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!' +
+      'autoprefixer?browsers=last 2 version!' +
+      'sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true&includePaths[]=' + encodeURIComponent(config.path.src))
   },
   {
     test: /\.css$/i,
