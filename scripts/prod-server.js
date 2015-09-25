@@ -6,6 +6,8 @@ import * as config from '../config';
 
 const app = express();
 
+app.use(require('morgan')('dev'));
+
 app.use(express.static(config.path.content_base));
 app.use(history());
 app.listen(config.prod_server.port, config.prod_server.host, err => {
