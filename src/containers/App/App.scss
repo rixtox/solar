@@ -1,7 +1,12 @@
 body {
-  background-color: #ccc;
+  margin: 0;
+}
+
+@font-face {
+  font-family: Pluto;
+  font-weight: 300;
+  src: url("assets/fonts/PlutoExtraLight.woff2") format("woff2");
 }
 
 .app {
-  background-color: #666;
 }
