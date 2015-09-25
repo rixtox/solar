@@ -4,19 +4,20 @@
   "description": "Nebular admin frontend",
   "main": "bin/server.js",
   "scripts": {
-    "dev": "node ./node_modules/better-npm-run dev",
-    "build": "node ./node_modules/better-npm-run build"
+    "dev": "NODE_ENV=development node ./node_modules/babel/bin/babel-node scripts/dev-server.js",
+    "build": "node ./node_modules/better-npm-run build",
+    "start": "node ./node_modules/better-npm-run start"
   },
   "betterScripts": {
-    "dev": {
-      "command": "babel-node scripts/dev-server.js",
+    "build": {
+      "command": "babel-node scripts/build.js",
       "env": {
-        "NODE_ENV": "development",
+        "NODE_ENV": "production",
         "FORCE_COLOR": "true"
       }
     },
-    "build": {
-      "command": "babel-node scripts/build.js",
+    "start": {
+      "command": "babel-node scripts/prod-server.js",
       "env": {
         "NODE_ENV": "production",
         "FORCE_COLOR": "true"
