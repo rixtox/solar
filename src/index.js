@@ -1,3 +1,4 @@
+import './global.scss';
 import 'file?name=../[name].[ext]!favicon.ico';
 import 'babel/polyfill';
 import React from 'react';

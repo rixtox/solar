@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
+import CSSModules from 'react-css-modules';
 import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
 import { PropTypes as RouterPropTypes } from 'react-router';
 
 import { login } from 'modules/auth';
 import { LoginForm } from 'components';
+import styles from './Login.scss';
 
 @connect(
     state => ({
@@ -13,6 +15,7 @@ import { LoginForm } from 'components';
     dispatch => bindActionCreators({
       login
     }, dispatch))
+@CSSModules(styles)
 export default class Home extends Component {
   static propTypes = {
     login: PropTypes.func.isRequired,
@@ -49,8 +52,11 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
-        <LoginForm onSubmit={data => this.handleLogin(data)}/>
+      <div styleName="fullpage">
+        <div>
+          <div styleName="title">Nebular Portal</div>
+          <LoginForm onSubmit={data => this.handleLogin(data)}/>
+        </div>
       </div>
     );
   }
