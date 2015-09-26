@@ -35,6 +35,9 @@ export function createClientStore(client, initialState) {
   // Create Redux store
   const store = finalCreateStore(reducer, initialState);
 
+  // Give the APIClient the ability to read authentication token
+  client.bindStore(store);
+
   // Enable Hot Module Replacement in development mode
   if (__DEVELOPMENT__ && module.hot) {
     module.hot.accept('modules/reducer', () => {

@@ -7,13 +7,22 @@ export default class APIClient {
     ['get', 'post', 'put', 'patch', 'del'].
       forEach((method) => {
         this[method] = (path, options) => {
+          // Retrieve token from Redux store and append it to the url params
+          let params = options.params || {};
+          if (!params.token && this.store) {
+            let { auth: { token } } = this.store.getState();
+            if (token) {
+              params.token = token;
+            }
+          }
           return axios({
             method,
             responseType: 'json',
             transformResponse: this.transformResponse,
             ...options,
+            params,
             url: this.formatUrl(path)
-          });
+          }).then(result => result.data);
         }
       });
 
@@ -55,7 +64,7 @@ export default class APIClient {
 
   // Transform returned data.
   // As our backend API return errors in JSON object instead of HTTP status codes
-  // we need to raise errors manually event the request is successed
+  // we need to raise errors manually even the request is successed
   transformResponse(data) {
     if (data && data.errors)
       throw data.errors;
@@ -65,5 +74,10 @@ export default class APIClient {
   // Construct full url based on pre-defined global Base Url
   formatUrl(path) {
     return url.resolve(__API_BASE_URL__, path);
+  }
+
+  // Bind store to get authentication token
+  bindStore(store) {
+    this.store = store;
   }
 }
