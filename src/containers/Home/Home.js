@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
 
 import { logout } from 'modules/auth';
+import fetchData from 'utils/fetchData';
+import { Shape as AuthShape } from 'modules/auth';
 
 @connect(
     state => ({
@@ -12,9 +14,9 @@ import { logout } from 'modules/auth';
     dispatch => bindActionCreators({
       logout
     }, dispatch))
+@fetchData()
 export default class Home extends Component {
   static propTypes = {
-    auth: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired
   }
 

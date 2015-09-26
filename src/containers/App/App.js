@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
 
 import styles from './App.scss';
+import fetchData from 'utils/fetchData';
+import { Shape as AuthShape } from 'modules/auth';
 
 @connect(
     state => ({
@@ -13,18 +15,19 @@ import styles from './App.scss';
     dispatch => bindActionCreators({
       verify
     }, dispatch))
+@fetchData()
 @CSSModules(styles)
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
+    verify: PropTypes.func.isRequired
   }
 
   static contextTypes = {
     store: PropTypes.object.isRequired
   }
 
-  componentDidMount() {
+  fetchData() {
     const { token, user } = this.props.auth;
     if (token && !user) {
       this.props.verify(this.props.auth);
@@ -32,10 +35,6 @@ export default class App extends Component {
   }
 
   render() {
-    const { token, user } = this.props.auth;
-    if (token && !user) {
-      return <div/>;
-    }
     return (
       <div styleName="app">{this.props.children}</div>
     );

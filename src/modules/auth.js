@@ -1,4 +1,5 @@
 import cookie from 'utils/cookie';
+import { PropTypes as Types } from 'react';
 
 const _ = __NAMESPACE__+'/auth/',
   LOGIN = _+'LOGIN',
@@ -12,6 +13,16 @@ const _ = __NAMESPACE__+'/auth/',
 const initialState = {
   role: cookie.get('role') || '',
   token: cookie.get('token') || ''
+};
+
+export let Shape = {
+  role: Types.string.isRequired,
+  token: Types.string.isRequired,
+  user: Types.shape({
+    id: Types.number.isRequired,
+    nickname: Types.string,
+    platform: Types.object
+  })
 };
 
 function saveAuth(role, token) {
@@ -36,13 +47,12 @@ export default function reducer(state = initialState, action = {}) {
         loggingIn: true
       };
     case LOGIN_SUCCESS: {
-      const { result: { data }, role } = action;
-      const { token } = data;
+      const { result: { token, id, nickname, avatar, platform }, role } = action;
       const user = {
-        id: data.id,
-        nickname: data.nickname,
-        avatar: data.avatar,
-        platform: data.platform
+        id: id,
+        nickname: nickname,
+        avatar: avatar,
+        platform: platform
       };
       saveAuth(role, token);
       return {
@@ -58,7 +68,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOGOUT:
       cookie.unset('role');
       cookie.unset('token');
-      return {};
+      return { role: '', token: '', user: {} };
     case VERIFY:
       const { role, token } = action;
       return {
@@ -67,8 +77,7 @@ export default function reducer(state = initialState, action = {}) {
         verifying: true
       };
     case VERIFY_SUCCESS: {
-      const { result: { data }, role, token } = action;
-      const { token_status, profile: user } = data;
+      const { result: { token_status, profile: user }, role, token } = action;
       if (token_status === 'valid') {
         return {
           role,
