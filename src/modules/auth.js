@@ -1,14 +1,14 @@
 import cookie from 'utils/cookie';
 import { PropTypes as Types } from 'react';
 
-const _ = __NAMESPACE__+'/auth/',
+export const _ = __NAMESPACE__+'/auth/',
   LOGIN = _+'LOGIN',
   LOGIN_SUCCESS = _+'LOGIN_SUCCESS',
   LOGIN_FAIL = _+'LOGIN_FAIL',
   LOGOUT = _+'LOGOUT',
   VERIFY = _+'VERIFY',
   VERIFY_SUCCESS = _+'VERIFY_SUCCESS',
-  VERIFY_FAIL = _+'VERIFY_FAIL'
+  VERIFY_FAIL = _+'VERIFY_FAIL';
 
 const initialState = {
   role: cookie.get('role') || '',
