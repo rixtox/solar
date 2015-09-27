@@ -45,12 +45,12 @@ export default class Editors extends Component {
       article_content = (
         <div styleName="editor-content">
           <div styleName="editor-content-poster" style={{color: article.theme_color, backgroundImage: `url(${article.poster.urls.large})`}}>
-            <div styleName="editor-content-info" style={{borderColor: article.theme_color}}>
+            <div styleName="editor-content-info">
               <div styleName="editor-content-author">
                 <div styleName="editor-content-author-avatar" style={{borderColor: article.theme_color, backgroundImage: `url(${author.avatar.urls.large})`}} />
                 <div styleName="editor-content-author-name">{author.name}</div>
               </div>
-              <div styleName="editor-content-title-box">
+              <div styleName="editor-content-title-box" style={{borderColor: article.theme_color}}>
                 <div styleName="editor-content-title">{article.title}</div>
                 <div styleName="editor-content-platform">from {article.platform.name}</div>
               </div>
