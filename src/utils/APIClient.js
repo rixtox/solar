@@ -8,7 +8,7 @@ export default class APIClient {
       forEach((method) => {
         this[method] = (path, options) => {
           // Retrieve token from Redux store and append it to the url params
-          let params = options.params || {};
+          var params = options && options.params || {};
           if (!params.token && this.store) {
             let { auth: { token } } = this.store.getState();
             if (token) {
@@ -18,11 +18,20 @@ export default class APIClient {
           return axios({
             method,
             responseType: 'json',
-            transformResponse: this.transformResponse,
             ...options,
             params,
             url: this.formatUrl(path)
-          }).then(result => result.data);
+          })
+          // Transform returned data.
+          // As our backend API return errors in JSON object instead of HTTP status codes
+          // we need to raise errors manually even the request is successed
+          .then(result => {
+            const { data } = result;
+            if (data && data.errors) {
+              throw data.errors;
+            }
+            return data
+          });
         }
       });
 
@@ -60,15 +69,6 @@ export default class APIClient {
         });
       }
     };
-  }
-
-  // Transform returned data.
-  // As our backend API return errors in JSON object instead of HTTP status codes
-  // we need to raise errors manually even the request is successed
-  transformResponse(data) {
-    if (data && data.errors)
-      throw data.errors;
-    return data
   }
 
   // Construct full url based on pre-defined global Base Url
