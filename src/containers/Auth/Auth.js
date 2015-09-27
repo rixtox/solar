@@ -1,7 +1,9 @@
 import {Component} from 'react';
 
-export default class RequireLogin extends Component {
-  static onEnter(store, ensureRole) {
+import { logout } from 'modules/auth';
+
+export default class Auth extends Component {
+  static verify(store, ensureRole) {
     return (nextState, replaceState) => {
       const { auth: { token, role }} = store.getState();
       if (!token) {
@@ -9,6 +11,13 @@ export default class RequireLogin extends Component {
       } else if (ensureRole && role !== ensureRole) {
         replaceState(null, `/${role}`);
       }
+    };
+  }
+
+  static logout(store) {
+    return (nextState, replaceState) => {
+      store.dispatch(logout());
+      replaceState(null, '/');
     };
   }
 

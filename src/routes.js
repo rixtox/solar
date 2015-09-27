@@ -5,7 +5,7 @@ import {
     Home,
     Login,
     Editors,
-    RequireAuth
+    Auth
   } from 'containers';
 
 export default function(store) {
@@ -13,7 +13,8 @@ export default function(store) {
     <Route component={App}>
       <Route path="/" component={Home}/>
       <Route path="/login" component={Login}/>
-      <Route component={RequireAuth} onEnter={RequireAuth.onEnter(store, 'editors')}>
+      <Route path="/logout" component={Auth} onEnter={Auth.logout(store)}/>
+      <Route component={Auth} onEnter={Auth.verify(store, 'editors')}>
         <Route path="/editors" component={Editors}/>
       </Route>
     </Route>
