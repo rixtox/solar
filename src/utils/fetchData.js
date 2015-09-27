@@ -25,6 +25,8 @@ functionConstructor = (Component) => {
   let decoratedClass;
 
   decoratedClass = class extends Component {
+    static propTypes = {}
+
     // Fire data fetching
     fetchData() {
       if (typeof super.fetchData === 'function') {
