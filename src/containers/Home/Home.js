@@ -11,7 +11,6 @@ import React, { Component, PropTypes } from 'react';
     }, dispatch))
 export default class Home extends Component {
   static propTypes = {
-    logout: PropTypes.func.isRequired
   }
 
   render() {

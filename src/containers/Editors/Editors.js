@@ -52,7 +52,7 @@ export default class Editors extends Component {
           <div styleName="article-list">
           {
             articles.map(article => (
-              <div styleName="article-item">
+              <div styleName="article-item" key={article.id}>
                 <div styleName="article-item-title">{article.title}</div>
                 <div styleName="article-item-status">
                   <div styleName="article-item-status-left">{article.status}</div>
