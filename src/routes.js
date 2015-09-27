@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router';
+import { Route, Redirect } from 'react-router';
 import {
     App,
     Home,
@@ -16,6 +16,7 @@ export default function(store) {
       <Route path="/logout" component={Auth} onEnter={Auth.logout(store)}/>
       <Route component={Auth} onEnter={Auth.verify(store, 'editors')}>
         <Route path="/editors" component={Editors}/>
+        <Route path="/editors/articles/:article_id" component={Editors}/>
       </Route>
     </Route>
   );

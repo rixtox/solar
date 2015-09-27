@@ -19,7 +19,7 @@ import { getOwnArticles } from 'modules/articles';
       getOwnArticles
     }, dispatch))
 @fetchData()
-@CSSModules(styles)
+@CSSModules(styles, {allowMultiple: true})
 export default class Editors extends Component {
   static propTypes = {
     auth: PropTypes.shape({user: PropTypes.object.isRequired})
@@ -29,8 +29,36 @@ export default class Editors extends Component {
     this.props.getOwnArticles();
   }
 
+  handleSelectArticle(id) {
+    return () => {
+      this.props.history.pushState(null, `/editors/articles/${id}`);
+    };
+  }
+
   render() {
-    const { articles, auth: { user }, logout } = this.props;
+    const { articles, auth: { user }, logout, params } = this.props;
+    const article_id = parseInt(params.article_id);
+    var article_content;
+    const article = _.find(articles, {id: article_id});
+    if (article) {
+      const author = article.authorships[0].credit_holder;
+      article_content = (
+        <div styleName="editor-content">
+          <div styleName="editor-content-poster" style={{color: article.theme_color, backgroundImage: `url(${article.poster.urls.large})`}}>
+            <div styleName="editor-content-info" style={{borderColor: article.theme_color}}>
+              <div styleName="editor-content-author">
+                <div styleName="editor-content-author-avatar" style={{borderColor: article.theme_color, backgroundImage: `url(${author.avatar.urls.large})`}} />
+                <div styleName="editor-content-author-name">{author.name}</div>
+              </div>
+              <div styleName="editor-content-title-box">
+                <div styleName="editor-content-title">{article.title}</div>
+                <div styleName="editor-content-platform">from {article.platform.name}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div styleName="wrapper">
         <div styleName="left-column">
@@ -51,8 +79,8 @@ export default class Editors extends Component {
           </div>
           <div styleName="article-list">
           {
-            articles.map(article => (
-              <div styleName="article-item" key={article.id}>
+            articles.map((article, key) => (
+              <div styleName={`article-item${article_id == article.id ? ' selected' : ''}`} onClick={this.handleSelectArticle(article.id)} key={article.id}>
                 <div styleName="article-item-title">{article.title}</div>
                 <div styleName="article-item-status">
                   <div styleName="article-item-status-left">{article.status}</div>
@@ -63,7 +91,15 @@ export default class Editors extends Component {
           }
           </div>
         </div>
-        <div styleName="middle-column"></div>
+        <div styleName="middle-column">
+          <div styleName="editor-control-bar">
+            <div styleName="editor-control">A</div>
+            <div styleName="editor-control">B</div>
+            <div styleName="editor-control">C</div>
+            <div styleName="editor-control">D</div>
+          </div>
+          {article_content}
+        </div>
         <div styleName="right-column"></div>
       </div>
     );
