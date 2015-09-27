@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import DOMPurify from 'dompurify';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
@@ -29,6 +30,12 @@ export default class Editors extends Component {
     this.props.getOwnArticles();
   }
 
+  createMarkup(html) {
+    return {
+      __html: DOMPurify.sanitize(html)
+    };
+  }
+
   handleSelectArticle(id) {
     return () => {
       this.props.history.pushState(null, `/editors/articles/${id}`);
@@ -56,6 +63,7 @@ export default class Editors extends Component {
               </div>
             </div>
           </div>
+          <div styleName="editor-content-article" dangerouslySetInnerHTML={this.createMarkup(article.content)}/>
         </div>
       );
     }
