@@ -22,7 +22,9 @@ webpack_config.module.loaders = [
     loader: 'style!' +
       'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!' +
       'autoprefixer?browsers=last 2 version!' +
-      'sass?outputStyle=expanded&sourceMap&includePaths[]=' + encodeURIComponent(config.path.src)
+      'sass?outputStyle=expanded&sourceMap' +
+        '&includePaths[]=' + encodeURIComponent(config.path.src) +
+        '&includePaths[]=' + encodeURIComponent(path.join(config.path.root, 'node_modules/compass-mixins/lib'))
   },
   {
     test: /\.css$/i,

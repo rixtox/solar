@@ -14,7 +14,9 @@ webpack_config.module.loaders = [
     test: /\.scss$/i,
     loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!' +
       'autoprefixer?browsers=last 2 version!' +
-      'sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true&includePaths[]=' + encodeURIComponent(config.path.src))
+      'sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true' +
+        '&includePaths[]=' + encodeURIComponent(config.path.src)) +
+        '&includePaths[]=' + encodeURIComponent(path.join(config.path.root, 'node_modules/compass-mixins/lib'))
   },
   {
     test: /\.css$/i,
