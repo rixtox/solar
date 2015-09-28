@@ -63,22 +63,32 @@
       border-bottom: 1px solid gray;
       flex-direction: column;
       display: flex;
-      height: 70px;
       cursor: pointer;
+      padding: 10px;
+      user-select: none;
       &.selected {
         border-left: 5px solid rgb(23, 136, 254);
       }
       .article-item-title {
         flex: 5;
+        font-size: 1.3em;
+        margin-bottom: 10px;
       }
       .article-item-status {
         flex: 3;
         display: flex;
         .article-item-status-left {
           flex: 1;
+          &.draft {
+            color: #FF4524;
+          }
+          &.published {
+            color: gray;
+          }
         }
         .article-item-status-right {
           flex: initial;
+          color: gray;
         }
       }
     }
