@@ -1,15 +1,9 @@
 .fullpage {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-  padding-bottom: 200px;
   background-color: #1f1f1f;
-  index-z: 999999999999999999;
   justify-content: center;
   align-items: center;
   display: flex;
+  height: 100vh;
 }
 
 .title {
