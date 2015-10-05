@@ -5,7 +5,7 @@ import styles from './ArticleEditor.scss';
 import { HtmlEditor } from 'components';
 
 @CSSModules(styles)
-export default class Editor extends Component {
+export default class ArticleEditor extends Component {
   static propTypes = {
     article: PropTypes.object.isRequired
   }

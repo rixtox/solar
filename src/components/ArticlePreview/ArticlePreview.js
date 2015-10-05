@@ -5,7 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './ArticlePreview.scss';
 
 @CSSModules(styles, {allowMultiple: true})
-export default class Preview extends Component {
+export default class ArticlePreview extends Component {
   static propTypes = {
     article: PropTypes.object.isRequired
   }
