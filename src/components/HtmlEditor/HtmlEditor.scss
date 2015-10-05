@@ -1,0 +1,15 @@
+.html-editor {
+  padding: 10px;
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  flex: 1;
+  :global img {
+    max-width:100%;
+    max-height:100%;
+    display: block;
+    margin: auto;
+  }
+}

@@ -21,6 +21,10 @@ export default {
   module: {
     loaders: [
       {
+        test: /wysihtml-toolbar/,
+        loader: 'script'
+      },
+      {
         test: /\.js$/i,
         exclude: /node_modules/,
         loaders: ['babel?optional[]=runtime&stage=0']

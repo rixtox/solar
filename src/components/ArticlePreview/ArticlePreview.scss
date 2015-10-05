@@ -1,0 +1,83 @@
+.preview {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  .preview-control-bar {
+    display: flex;
+    height: 40px;
+    flex: 0 0 40px;
+    flex-direction: row;
+    .preview-control {
+      align-self: center;
+      text-align: center;
+      width: 40px;
+      line-height: 40px;
+    }
+  }
+  .preview-content {
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .preview-content-poster {
+      height: 700px;
+      flex: 0 0 700px;
+      display: flex;
+      flex-direction: column-reverse;
+      background-size: cover;
+      background-position: center;
+      .preview-content-info {
+        display: flex;
+        flex-direction: column;
+        padding: 170px 20px 20px;
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 75%, rgba(0,0,0,1) 100%);
+        .preview-content-author {
+          display: flex;
+          flex-direction: row;
+          margin-bottom: 10px;
+          .preview-content-author-avatar {
+            height: 40px;
+            width: 40px;
+            flex: 0 0 40px;
+            border-radius: 50%;
+            border-style: solid;
+            border-width: 2px;
+            background-size: cover;
+            background-position: center;
+          }
+          .preview-content-author-name {
+            font-size: 1.3em;
+            align-self: center;
+            margin-left: 10px;
+          }
+        }
+        .preview-content-title-box {
+          display: flex;
+          flex-direction: column;
+          border-left-width: 4px;
+          border-left-style: solid;
+          margin-left: 20px;
+          padding-left: 10px;
+          .preview-content-title {
+            font-size: 2em;
+          }
+          .preview-content-platform {
+            color: gray;
+          }
+        }
+      }
+    }
+    .preview-content-article {
+      padding: 10px;
+      :global img {
+        max-width:100%;
+        max-height:100%;
+      }
+    }
+  }
+}

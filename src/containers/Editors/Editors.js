@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import DOMPurify from 'dompurify';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
@@ -7,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
 import { PropTypes as RouterPropTypes } from 'react-router';
 
+import { ArticlePreview, ArticleEditor } from 'components';
 import styles from './Editors.scss';
 import fetchData from 'utils/fetchData';
 import { getOwnArticles } from 'modules/articles';
@@ -30,12 +30,6 @@ export default class Editors extends Component {
     this.props.getOwnArticles();
   }
 
-  createMarkup(html) {
-    return {
-      __html: DOMPurify.sanitize(html)
-    };
-  }
-
   handleSelectArticle(id) {
     return () => {
       this.props.history.pushState(null, `/editors/articles/${id}`);
@@ -45,42 +39,16 @@ export default class Editors extends Component {
   render() {
     const { articles, auth: { user }, logout, params } = this.props;
     const article_id = parseInt(params.article_id);
-    var article_content;
     const article = _.find(articles, {id: article_id});
+    var article_content;
     if (article) {
-      var author;
-      try {
-        author = article.authorships[0].credit_holder;
-      } catch (e) {
-        author = {
-          name: '',
-          avatar: {
-            urls: {
-              large: ''
-            }
-          }
-        };
+      if (article.status === 'draft') {
+        article_content = <ArticleEditor article={article}/>;
+      } else {
+        article_content = <ArticlePreview article={article}/>;
       }
-      if (!article.poster) {
-        article.poster = {urls: {large: ''}};
-      }
-      article_content = (
-        <div styleName="editor-content">
-          <div styleName="editor-content-poster" style={{color: article.theme_color, backgroundImage: `url(${article.poster.urls.large})`}}>
-            <div styleName="editor-content-info">
-              <div styleName="editor-content-author">
-                <div styleName="editor-content-author-avatar" style={{borderColor: article.theme_color, backgroundImage: `url(${author.avatar.urls.large})`}} />
-                <div styleName="editor-content-author-name">{author.name}</div>
-              </div>
-              <div styleName="editor-content-title-box" style={{borderColor: article.theme_color}}>
-                <div styleName="editor-content-title">{article.title}</div>
-                <div styleName="editor-content-platform">from {article.platform.name}</div>
-              </div>
-            </div>
-          </div>
-          <div styleName="editor-content-article" dangerouslySetInnerHTML={this.createMarkup(article.content)}/>
-        </div>
-      );
+    } else {
+      article_content = <noscript/>;
     }
     const article_item = article => {
       var status_left;
@@ -131,12 +99,6 @@ export default class Editors extends Component {
           <div styleName="article-list">{ article_items }</div>
         </div>
         <div styleName="middle-column">
-          <div styleName="editor-control-bar">
-            <div styleName="editor-control">A</div>
-            <div styleName="editor-control">B</div>
-            <div styleName="editor-control">C</div>
-            <div styleName="editor-control">D</div>
-          </div>
           {article_content}
         </div>
         <div styleName="right-column"></div>
