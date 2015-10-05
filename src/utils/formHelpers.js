@@ -1,4 +1,4 @@
-const radioProps = (props, field) => value => {
+export const radioProps = (props, field) => value => {
   const { fields: {[field]: fieldProps}, handleChange } = props;
   const setValue = () => handleChange(field, value);
   return {
@@ -8,5 +8,3 @@ const radioProps = (props, field) => value => {
     checked: fieldProps.value === value
   };
 };
-
-export default radioProps;

@@ -3,7 +3,7 @@ import { connectReduxForm } from 'redux-form';
 import React, { Component, PropTypes } from 'react';
 
 import styles from './LoginForm.scss';
-import radioProps from 'utils/radioProps';
+import { radioProps } from 'utils/formHelpers';
 
 @connectReduxForm({
   form: 'login',
@@ -26,7 +26,7 @@ export default class LoginForm extends Component {
   }
 
   render() {
-    const { fields: { role, email, password }, handleSubmit, handleChange } = this.props;
+    const { fields: { email, password }, handleSubmit } = this.props;
     const roleProps = radioProps(this.props, 'role');
     return (
       <form onSubmit={handleSubmit}>
