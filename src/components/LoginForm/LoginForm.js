@@ -19,7 +19,6 @@ export default class LoginForm extends Component {
   }
 
   componentWillMount() {
-    this.props.resetForm();
     this.props.initializeForm({
       role: 'editors'
     });
