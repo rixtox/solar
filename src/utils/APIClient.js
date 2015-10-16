@@ -50,7 +50,7 @@ export default class APIClient {
         }
 
         // Retreive the actions of different stages from the action object
-        const [REQUEST, SUCCESS, FAILURE] = types;
+        const {REQUEST, SUCCESS, FAILURE} = types;
 
         // We first dispatch the REQUEST action
         next({...rest, type: REQUEST});

@@ -1,14 +1,9 @@
 import cookie from 'utils/cookie';
+import Namespace from 'utils/namespace';
 import { PropTypes as Types } from 'react';
 
-export const _ = __NAMESPACE__+'/auth/',
-  LOGIN = _+'LOGIN',
-  LOGIN_SUCCESS = _+'LOGIN_SUCCESS',
-  LOGIN_FAIL = _+'LOGIN_FAIL',
-  LOGOUT = _+'LOGOUT',
-  VERIFY = _+'VERIFY',
-  VERIFY_SUCCESS = _+'VERIFY_SUCCESS',
-  VERIFY_FAIL = _+'VERIFY_FAIL';
+const NS = 'auth';
+const [$, $$] = Namespace(NS);
 
 const initialState = {
   role: cookie.get('role') || '',
@@ -42,11 +37,11 @@ function saveAuth(role, token) {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case LOGIN:
+    case $('LOGIN').R:
       return {
         loggingIn: true
       };
-    case LOGIN_SUCCESS: {
+    case $('LOGIN').S: {
       const { result: { token, id, nickname, avatar, platform }, role } = action;
       const user = {
         id: id,
@@ -61,22 +56,22 @@ export default function reducer(state = initialState, action = {}) {
         token
       };
     }
-    case LOGIN_FAIL:
+    case $('LOGIN').F:
       return {
         loginError: action.error
       };
-    case LOGOUT:
+    case $$('LOGOUT'):
       cookie.unset('role');
       cookie.unset('token');
       return { role: '', token: '', user: {} };
-    case VERIFY:
+    case $('VERIFY').R:
       const { role, token } = action;
       return {
         role,
         token,
         verifying: true
       };
-    case VERIFY_SUCCESS: {
+    case $('VERIFY').S: {
       const { result: { token_status, profile: user }, role, token } = action;
       if (token_status === 'valid') {
         return {
@@ -89,7 +84,7 @@ export default function reducer(state = initialState, action = {}) {
         return {};
       }
     }
-    case VERIFY_FAIL:
+    case $('VERIFY').F:
       return {
         verifyError: action.error
       };
@@ -101,7 +96,7 @@ export default function reducer(state = initialState, action = {}) {
 export function login({ role, email, password }) {
   return {
     role,
-    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+    types: $('LOGIN'),
     promise: (client) => client.post(`${role}/auth`, {
       data: {
         email,
@@ -112,14 +107,14 @@ export function login({ role, email, password }) {
 }
 
 export function logout() {
-  return {type: LOGOUT};
+  return {type: $$('LOGOUT')};
 }
 
 export function verify({ role, token }) {
   return {
     role,
     token,
-    types: [VERIFY, VERIFY_SUCCESS, VERIFY_FAIL],
+    types: $('VERIFY'),
     promise: (client) => client.get(`${role}/verify`, {
       params: { token }
     })
