@@ -14,13 +14,17 @@
       text-align: center;
       width: 40px;
       line-height: 40px;
+      .editor-control-file {
+        display: none;
+      }
     }
   }
   .editor-content {
     flex: 1;
-    flex-direction: column;
     display: flex;
     overflow-y: scroll;
+    flex-direction: column;
+    justify-content: flex-start;
     &::-webkit-scrollbar {
       display: none;
     }

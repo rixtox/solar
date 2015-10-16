@@ -9,7 +9,7 @@ import { PropTypes as RouterPropTypes } from 'react-router';
 import { ArticlePreview, ArticleEditor } from 'components';
 import styles from './Editors.scss';
 import fetchData from 'utils/fetchData';
-import { getOwnArticles } from 'modules/articles';
+import { getOwnArticles, uploadCover } from 'modules/articles';
 
 @connect(
     state => ({
@@ -17,7 +17,8 @@ import { getOwnArticles } from 'modules/articles';
       articles: _.filter(state.articles, article => article.owner.id === state.auth.user.id)
     }),
     dispatch => bindActionCreators({
-      getOwnArticles
+      getOwnArticles,
+      uploadCover
     }, dispatch))
 @fetchData()
 @CSSModules(styles, {allowMultiple: true})
@@ -36,6 +37,10 @@ export default class Editors extends Component {
     };
   }
 
+  handleUploadCover(file) {
+    this.props.uploadCover(file, parseInt(this.props.params.article_id));
+  }
+
   render() {
     const { articles, auth: { user }, logout, params } = this.props;
     const article_id = parseInt(params.article_id);
@@ -43,7 +48,7 @@ export default class Editors extends Component {
     var article_content;
     if (article) {
       if (article.status === 'draft') {
-        article_content = <ArticleEditor article={article}/>;
+        article_content = <ArticleEditor article={article} handleUploadCover={ this.handleUploadCover.bind(this) }/>;
       } else {
         article_content = <ArticlePreview article={article}/>;
       }

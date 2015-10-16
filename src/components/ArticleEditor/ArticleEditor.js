@@ -28,10 +28,18 @@ export default class ArticleEditor extends Component {
     if (!article.poster) {
       article.poster = {urls: {large: ''}};
     }
+    if (!article.theme_color) {
+      article.theme_color = "#ffffff";
+    }
     return (
       <div styleName="editor">
         <div styleName="editor-control-bar">
-          <div styleName="editor-control">A</div>
+          <label styleName="editor-control">
+            <input type="file" styleName="editor-control-file" accept="image/x-png, image/jpeg" onChange={event => {
+              this.props.handleUploadCover(event.target.files[0]);
+            }}/>
+            <span>Cover</span>
+          </label>
           <div styleName="editor-control">B</div>
           <div styleName="editor-control">C</div>
           <div styleName="editor-control">D</div>
