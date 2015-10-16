@@ -33,10 +33,6 @@ export default class Home extends Component {
     this.verify(nextProps);
   }
 
-  handleLogin(data) {
-    this.props.login(data);
-  }
-
   verify(props) {
     const { history, auth, location } = props;
     if (auth.token) {
@@ -55,7 +51,7 @@ export default class Home extends Component {
       <div styleName="fullpage">
         <div>
           <div styleName="title">Nebular Portal</div>
-          <LoginForm onSubmit={data => this.handleLogin(data)}/>
+          <LoginForm onSubmit={this.props.login}/>
         </div>
       </div>
     );

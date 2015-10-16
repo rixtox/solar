@@ -1,5 +1,4 @@
 import CSSModules from 'react-css-modules';
-import { connectReduxForm } from 'redux-form';
 import React, { Component, PropTypes } from 'react';
 
 import styles from './ArticleForm.scss';

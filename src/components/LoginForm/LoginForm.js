@@ -1,67 +1,98 @@
 import CSSModules from 'react-css-modules';
-import { connectReduxForm } from 'redux-form';
 import React, { Component, PropTypes } from 'react';
 
 import styles from './LoginForm.scss';
-import { radioProps } from 'utils/formHelpers';
 
-@connectReduxForm({
-  form: 'login',
-  fields: ['role', 'email', 'password']
-})
 @CSSModules(styles)
 export default class LoginForm extends Component {
   static propTypes = {
-    fields: PropTypes.object.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired
   }
 
-  componentWillMount() {
-    this.props.initializeForm({
-      role: 'editors'
-    });
+  state = {
+    email: '',
+    password: '',
+    role: 'editors'
   }
+
+  onChange = ({target: t}) => {
+    this.setState({[t.name]: t.value})
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.onSubmit(this.state);
+  }
+
+  onSelectRole = role => () => this.setState({role})
 
   render() {
-    const { fields: { email, password }, handleSubmit } = this.props;
-    const roleProps = radioProps(this.props, 'role');
+    const { role, email, password } = this.state;
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={this.onSubmit}>
         <div styleName="form-field">
           <label styleName="label" htmlFor="login-email">Email</label>
 
           <input
+            name="email"
             autoFocus
             styleName="input"
             id="login-email"
             type="email"
-            placeholder="editor@nebular.me"
+            placeholder={role === 'editors' ? 'editor@nebular.me' : 'manager@nebular.me'}
             required
-            {...email}
+            value={email}
+            onChange={this.onChange}
           />
         </div>
         <div styleName="form-field">
           <label styleName="label" htmlFor="login-password">Password</label>
 
           <input
+            name="password"
             styleName="input"
             id="login-password"
             type="password"
             placeholder="••••••••"
             required
-            {...password}
+            value={password}
+            onChange={this.onChange}
           />
         </div>
         <div styleName="radio-group">
           <div>
-            <input styleName="radio" type="radio" id="login-radio-editors" {...roleProps('editors')} />
-            <label styleName="radio-label" htmlFor="login-radio-editors">Editor</label>
+            <input
+              name="role"
+              styleName="radio"
+              type="radio"
+              id="login-radio-editors"
+              checked={role === 'editors'}
+              value="editors"
+              onChange={this.onSelectRole('editors')}
+            />
+            <label
+              styleName="radio-label"
+              htmlFor="login-radio-editors"
+              onClick={this.onSelectRole('editors')}>
+                Editor
+            </label>
           </div>
           <div>
-            <input styleName="radio" type="radio" id="login-radio-managers" {...roleProps('managers')} />
-            <label styleName="radio-label" htmlFor="login-radio-managers">Manager</label>
+            <input
+              name="role"
+              styleName="radio"
+              type="radio"
+              id="login-radio-editors"
+              checked={role === 'managers'}
+              value="managers"
+              onChange={this.onSelectRole('managers')}
+            />
+            <label
+              styleName="radio-label"
+              htmlFor="login-radio-managers"
+              onClick={this.onSelectRole('managers')}>
+                Manager
+            </label>
           </div>
         </div>
         <div styleName="form-field">
