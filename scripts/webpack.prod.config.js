@@ -24,11 +24,23 @@ webpack_config.module.loaders = [
   }
 ];
 
+let CONSTANTS = {
+  ...config.production.CONSTANTS,
+  __PRODUCTION__: true,
+  __DEVELOPMENT__: false
+};
+
+for (let prop in CONSTANTS) {
+  if ( CONSTANTS.hasOwnProperty(prop) ) {
+    CONSTANTS[prop] = JSON.stringify(CONSTANTS[prop]);
+  }
+}
+
 webpack_config.plugins = [
   new ExtractTextPlugin('[name]-[chunkhash].css', {
     allChunks: true
   }),
-  new webpack.DefinePlugin(config.production.CONSTANTS),
+  new webpack.DefinePlugin(CONSTANTS),
   new HtmlWebpackPlugin({
     filename: config.path.html,
     title: config.production.title,

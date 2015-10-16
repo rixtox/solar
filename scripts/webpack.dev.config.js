@@ -32,8 +32,20 @@ webpack_config.module.loaders = [
   }
 ];
 
+let CONSTANTS = {
+  ...config.development.CONSTANTS,
+  __PRODUCTION__: false,
+  __DEVELOPMENT__: true
+};
+
+for (let prop in CONSTANTS) {
+  if ( CONSTANTS.hasOwnProperty(prop) ) {
+    CONSTANTS[prop] = JSON.stringify(CONSTANTS[prop]);
+  }
+}
+
 webpack_config.plugins = [
-  new webpack.DefinePlugin(config.development.CONSTANTS),
+  new webpack.DefinePlugin(CONSTANTS),
   new HtmlWebpackPlugin({
     filename: config.path.html,
     title: config.development.title,
