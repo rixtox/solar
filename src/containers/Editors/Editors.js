@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
 import { PropTypes as RouterPropTypes } from 'react-router';
 
-import { ArticlePreview, ArticleEditor } from 'components';
+import { ArticlePreview, ArticleEditor, ArticleForm } from 'components';
 import styles from './Editors.scss';
 import fetchData from 'utils/fetchData';
 import { getOwnArticles, uploadCover } from 'modules/articles';
@@ -45,15 +45,18 @@ export default class Editors extends Component {
     const { articles, auth: { user }, logout, params } = this.props;
     const article_id = parseInt(params.article_id);
     const article = _.find(articles, {id: article_id});
-    var article_content;
+    var article_content, article_form;
     if (article) {
       if (article.status === 'draft') {
         article_content = <ArticleEditor article={article} handleUploadCover={ this.handleUploadCover.bind(this) }/>;
+        article_form = <ArticleForm article={article}/>
       } else {
         article_content = <ArticlePreview article={article}/>;
+        article_form = <ArticleForm article={article}/>;  // TODO: remove editable fields
       }
     } else {
       article_content = <noscript/>;
+      article_form = <noscript/>;
     }
     const article_item = article => {
       var status_left;
@@ -106,7 +109,9 @@ export default class Editors extends Component {
         <div styleName="middle-column">
           {article_content}
         </div>
-        <div styleName="right-column"></div>
+        <div styleName="right-column">
+          {article_form}
+        </div>
       </div>
     );
   }
