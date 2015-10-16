@@ -11,7 +11,7 @@ export const path = {
 
 export const dev_server = {
   port: 3000,
-  host: 'localhost'
+  host: '0.0.0.0'
 };
 
 export const prod_server = {
