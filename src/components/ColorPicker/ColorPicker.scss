@@ -1,0 +1,16 @@
+.color-picker {
+  flex: 1;
+  display: flex;
+  align-self: stretch;
+  flex-direction: row;
+  .sliders {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .preview {
+    display: flex;
+    width: 150px;
+    padding: 10px;
+  }
+}

@@ -1,7 +1,9 @@
 import CSSModules from 'react-css-modules';
 import React, { Component, PropTypes } from 'react';
 
+import Color from 'utils/color';
 import styles from './ArticleForm.scss';
+import { ColorPicker } from 'components';
 
 @CSSModules(styles)
 export default class ArticleForm extends Component {
@@ -9,8 +11,17 @@ export default class ArticleForm extends Component {
     article: PropTypes.object.isRequired
   }
 
+  state = {
+    theme_color: new Color(this.props.article.theme_color)
+  }
+
+  onThemeColorChange = (theme_color) => {
+    this.setState({ theme_color });
+  }
+
   render() {
     const { article } = this.props;
+    const { theme_color } = this.state;
     return (
       <form styleName="form">
         <div styleName="top-bar">
@@ -29,7 +40,7 @@ export default class ArticleForm extends Component {
           </div>
           <div styleName="control-group">
             <div styleName="label">Theme Color</div>
-            <input styleName="input" value={article.theme_color}/>
+            <ColorPicker color={theme_color} onChange={this.onThemeColorChange} />
           </div>
           { article.authorships.length > 0 ? (
               <div styleName="control-group">

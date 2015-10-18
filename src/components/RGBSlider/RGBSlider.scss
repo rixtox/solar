@@ -1,0 +1,40 @@
+@import 'vars';
+
+.rgb-slider {
+  flex: 1;
+  cursor: default;
+  align-self: stretch;
+  padding: 0 10px;
+  min-width: 150px;
+  user-select: none;
+  margin: $slider-height/2 0;
+  .fill {
+    height: $slider-height;
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 4px;
+  }
+  $knob-size: $slider-height * 1.1;
+  $knob-color: white;
+  $knob-radius: $knob-size/7;
+  .knob {
+    position: relative;
+    top: -$knob-size/5;
+    $knob-shift: $knob-size * 0.85;
+    $knob-position: 67%;
+    left: $knob-position;
+    width: $knob-size;
+    height: $knob-size/2;
+    background-color: $knob-color;
+    border-radius: 0 0 $knob-radius $knob-radius;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+    &:after {
+      content: '';
+      position: absolute;
+      border: $knob-size/2 solid transparent;
+      margin-top: -$knob-size/2;
+      top: -$knob-size/2;
+      border-bottom: $knob-size/2 solid $knob-color;
+    }
+  }
+}

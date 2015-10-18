@@ -1,0 +1,21 @@
+.color-plate {
+  display: flex;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 2px solid #A6ADBB;
+  flex-direction: column;
+  background-color: white;
+  filter: drop-shadow(0 0 4px rgba(0,0,0,.5));
+  .color-display {
+    flex: 1;
+    border-radius: 4px 4px 6px 6px;
+  }
+  .color-value {
+    color: #333D46;
+    text-align: center;
+    border: none;
+    width: 100%;
+    padding: 3px 0;
+    border-radius: 0 0 4px 4px;
+  }
+}

@@ -3,3 +3,7 @@ export HtmlEditor from './HtmlEditor/HtmlEditor';
 export ArticleForm from './ArticleForm/ArticleForm';
 export ArticleEditor from './ArticleEditor/ArticleEditor';
 export ArticlePreview from './ArticlePreview/ArticlePreview';
+export RGBSlider from './RGBSlider/RGBSlider';
+export RGBComponent from './RGBComponent/RGBComponent';
+export ColorPlate from './ColorPlate/ColorPlate';
+export ColorPicker from './ColorPicker/ColorPicker';
