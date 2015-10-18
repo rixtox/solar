@@ -2,6 +2,7 @@ import './global.scss';
 import 'file?name=../[name].[ext]!favicon.ico';
 import 'babel/polyfill';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 import createHistory from 'history/lib/createBrowserHistory';
@@ -17,15 +18,20 @@ const client = new APIClient();
 const store = createClientStore(client);
 
 // Construct the main app root wrapped with Redux contex provider
-var component = <Provider store={ store }>{() =>
+var component = <Provider store={ store }>
   <Router history={ history }>
     { routes( store ) }
   </Router>
-}</Provider>;
+</Provider>;
 
 // While compiling in development environment, or explicitly enabling devtools,
 // include redux-devtools and wrap the main app root together with DebugPanel
 if (__DEV_TOOLS__) {
+  /*
+   * As in React 0.14, dev-tools is currently not supported
+   * We will wait and add it back in the future
+   *
+  *//*
   const { DevTools, DebugPanel } = require('redux-devtools/lib/react');
   const DiffMonitor = require('redux-devtools-diff-monitor');
   component = (<div>
@@ -34,7 +40,8 @@ if (__DEV_TOOLS__) {
       <DevTools store={store} monitor={DiffMonitor}/>
     </DebugPanel>
   </div>);
+  */
 }
 
 // Mount and render main app root on body element
-React.render(component, document.body);
+ReactDOM.render(component, document.getElementById('app'));

@@ -15,8 +15,8 @@ export default class RGBSlider extends Component {
   }
 
   getDimensions = () => {
-    const knobRect = this.refs.knob.getDOMNode().getBoundingClientRect();
-    const fillRect = this.refs.fill.getDOMNode().getBoundingClientRect();
+    const knobRect = this.refs.knob.getBoundingClientRect();
+    const fillRect = this.refs.fill.getBoundingClientRect();
     const minX = fillRect.left - knobRect.width * 0.2;
     const maxX = fillRect.right - knobRect.width * 0.8;
     const lengthX = maxX - minX;
@@ -74,11 +74,11 @@ export default class RGBSlider extends Component {
   }
 
   updateKnob = (value) => {
-    this.refs.knob.getDOMNode().style.left = this.valueToLeft(this.state.value);
+    this.refs.knob.style.left = this.valueToLeft(this.state.value);
   }
 
   updateFill = ({ color, component }) => {
-    this.refs.fill.getDOMNode().style.background = `linear-gradient(to right, ${color.use(component, 0).toHexString()} 0%, ${color.use(component, 255).toHexString()} 100%)`;
+    this.refs.fill.style.background = `linear-gradient(to right, ${color.use(component, 0).toHexString()} 0%, ${color.use(component, 255).toHexString()} 100%)`;
   }
 
   componentDidMount = () => {

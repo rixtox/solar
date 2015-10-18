@@ -1,4 +1,4 @@
-import { canUseDOM } from 'react/lib/ExecutionEnvironment';
+import { canUseDOM } from 'history/lib/ExecutionEnvironment';
 
 const cookie = {
   set({ name, value = '', path = '/', domain = '', expires = '' }) {

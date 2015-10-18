@@ -10,6 +10,13 @@ export default class HtmlEditor extends Component {
     onChange: PropTypes.func
   }
 
+  handleChange = () => {
+    const value = this.state.editor.getValue();
+    if (typeof this.props.onChange === 'function') {
+      this.props.onChange({ target: { value } });
+    }
+  }
+
   componentWillReceiveProps(newProps) {
     if (this.props.value !== newProps.value) {
       this.state.editor.setValue(newProps.value, true);
@@ -21,7 +28,7 @@ export default class HtmlEditor extends Component {
       require('wysihtml/dist/wysihtml-toolbar');
     }
     const EDITOR = window.wysihtml5;
-    const textarea = React.findDOMNode(this.refs.textarea);
+    const textarea = this.refs.textarea;
     const editor = new EDITOR.Editor(textarea, {
       parserRules: {
         tags: {
@@ -62,15 +69,8 @@ export default class HtmlEditor extends Component {
     this.setState({ editor });
     editor.on('load', () => {
       editor.setValue(this.props.value, true);
-      editor.on('change', this.handleChange.bind(this));
+      editor.on('change', this.handleChange);
     });
-  }
-
-  handleChange() {
-    const value = this.state.editor.getValue();
-    if (typeof this.props.onChange === 'function') {
-      this.props.onChange({ target: { value } });
-    }
   }
 
   shouldComponentUpdate() {

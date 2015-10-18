@@ -7,11 +7,11 @@ import styles from './ColorPlate.scss';
 @CSSModules(styles)
 export default class ColorPlate extends Component {
   updateStyles = ({ color }) => {
-    this.refs.colorDisplay.getDOMNode().style.backgroundColor = color.toHexString();
+    this.refs.colorDisplay.style.backgroundColor = color.toHexString();
   }
 
   updateValue = (value) => {
-    this.refs.value.getDOMNode().value = value;
+    this.refs.value.value = value;
   }
 
   componentDidMount = () => {
@@ -33,7 +33,7 @@ export default class ColorPlate extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     this.updateStyles(nextProps);
-    const color = new Color(this.refs.value.getDOMNode().value);
+    const color = new Color(this.refs.value.value);
     if (!color.hexEquals(nextProps.color) ) {
       this.updateValue(nextProps.color.toHexString());
     }

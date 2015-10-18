@@ -18,7 +18,12 @@ export function createClientStore(client, initialState) {
   var finalCreateStore;
 
   // Setup Redux development tools
-  if (__DEV_TOOLS__) {
+  // if (__DEV_TOOLS__) {
+    /*
+     * As in React 0.14, dev-tools is currently not supported
+     * We will wait and add it back in the future
+     *
+    *//*
     // Redux DevTools store enhancers
     const { devTools, persistState } = require('redux-devtools');
     finalCreateStore = compose(
@@ -28,9 +33,10 @@ export function createClientStore(client, initialState) {
       // Lets you write ?debug_session=<name> in address bar to persist debug sessions
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(createStore);
-  } else {
+    */
+  // } else {
     finalCreateStore = applyMiddleware(...middleware)(createStore);
-  }
+  // }
 
   // Create Redux store
   const store = finalCreateStore(reducer, initialState);
