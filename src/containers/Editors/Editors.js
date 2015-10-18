@@ -14,16 +14,17 @@ import { getOwnArticles, uploadCover } from 'modules/articles';
 @connect(
     state => ({
       auth: state.auth,
-      articles: _.filter(state.articles, article => article.owner.id === state.auth.user.id)
+      articles: state.articles
     }),
     dispatch => bindActionCreators({
       getOwnArticles,
       uploadCover
     }, dispatch))
-@fetchData()
 @CSSModules(styles, {allowMultiple: true})
+@fetchData()
 export default class Editors extends Component {
   static propTypes = {
+    articles: PropTypes.object.isRequired,
     auth: PropTypes.shape({user: PropTypes.object.isRequired})
   }
 
@@ -42,7 +43,8 @@ export default class Editors extends Component {
   }
 
   render() {
-    const { articles, auth: { user }, logout, params } = this.props;
+    const { auth: { user }, logout, params } = this.props;
+    const articles = _.filter(this.props.articles, article => article.owner.id === user.id);
     const article_id = parseInt(params.article_id);
     const article = _.find(articles, {id: article_id});
     var article_content, article_form;
