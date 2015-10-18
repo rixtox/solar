@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from 'underscore';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
