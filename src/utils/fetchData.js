@@ -24,18 +24,58 @@ export let validate = (propTypes, props, className) => {
 functionConstructor = (Component) => {
   let decoratedClass;
 
+  if (!Component.prototype.componentDidUpdate) {
+    Component.prototype.componentDidUpdate = () => {};
+  }
+  if (!Component.prototype.componentWillMount) {
+    Component.prototype.componentWillMount = () => {};
+  }
+
+  let didRender = false;
+  let didMount = false;
+
+  [ 'render',
+    'getInitialState',
+    'getDefaultProps',
+    'componentWillMount',
+    'componentDidMount',
+    'componentWillReceiveProps',
+    'shouldComponentUpdate',
+    'componentWillUpdate',
+    'componentDidUpdate',
+    'componentWillUnmount'
+  ].forEach((proto) => {
+    (compProto) => {
+      if (typeof compProto === 'function') {
+        Component.prototype[proto] = function() {
+          const thisProto = this['_' + proto];
+          let thisProtoReturn;
+          if (typeof thisProto === 'function') {
+            thisProtoReturn = thisProto.apply(this, arguments);
+          }
+          if (this._validateData(true)) {
+            didRender = proto === 'render' || didRender;
+            return compProto.apply(this, arguments)
+          } else {
+            return thisProtoReturn;
+          }
+        };
+      }
+    }(Component.prototype[proto]);
+  });
+
   decoratedClass = class extends Component {
     static propTypes = {}
 
     // Fire data fetching
-    fetchData() {
+    _fetchData() {
       if (typeof super.fetchData === 'function') {
         return super.fetchData();
       }
     }
 
     // Validate the instance's props with its static propTypes schema
-    validateData(defaultValue = true) {
+    _validateData(defaultValue = true) {
       if (typeof super.validateData === 'function') {
         return super.validateData();
       }
@@ -49,26 +89,18 @@ functionConstructor = (Component) => {
       return defaultValue;
     }
 
-    componentWillMount(...args) {
-      this.fetchData();
-      if (typeof super.componentWillMount === 'function') {
-        return super.componentWillMount(...args);
+    _componentDidUpdate = () => {
+      if (didRender && !didMount) {
+        didMount = true;
+        this.componentDidMount();
       }
     }
 
-    render () {
-      let data_valid = this.validateData(true);
-      if (data_valid) {
-        let renderResult;
-
-        renderResult = super.render();
-
-        if (renderResult) {
-          return renderResult;
-        }
-      }
-      return <noscript/>;
+    _componentWillMount = () => {
+      this._fetchData();
     }
+
+    _render = () => <noscript/>;
   };
 
   if (Component.displayName) {
